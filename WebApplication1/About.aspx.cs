@@ -29,6 +29,7 @@ namespace WebApplication1
             var tenantId = ConfigurationManager.AppSettings["graph:TenantId"];
             var clientSecret = ConfigurationManager.AppSettings["graph:ClientSecret"];
             var senderId = ConfigurationManager.AppSettings["graph:SenderId"];
+            var replyId = ConfigurationManager.AppSettings["graph:ReplyId"];
 
             // using Azure.Identity;
             var options = new ClientSecretCredentialOptions
@@ -57,6 +58,30 @@ namespace WebApplication1
                             {
                                 Address = Context.User.Identity.Name,
                             },
+                        },
+                    },
+                    ReplyTo = new List<Recipient>
+                    {
+                        new Recipient
+                        {
+                            EmailAddress = new EmailAddress
+                            {
+                                Address = replyId,
+                            },
+                        },
+                    },
+                    From = new Recipient
+                    {
+                        EmailAddress = new EmailAddress
+                        {
+                            Address = replyId,
+                        },
+                    },
+                    Sender = new Recipient
+                    {
+                        EmailAddress = new EmailAddress
+                        {
+                            Address = replyId,
                         },
                     },
                 },
